@@ -9,7 +9,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
