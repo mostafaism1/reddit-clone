@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import com.example.redditclone.dto.RegisterRequest;
+import com.example.redditclone.exception.RedditException;
 import com.example.redditclone.model.NotificationEmail;
 import com.example.redditclone.model.User;
 import com.example.redditclone.model.VerificationToken;
@@ -34,6 +35,15 @@ public class AuthService {
         saveToken(user, token);
 
         sendVerificationMail(user, token);
+    }
+
+    public void verifyAccount(String token) {
+        VerificationToken verificationToken = verificationTokenRepository.findByToken(token)
+                .orElseThrow(() -> new RedditException("Invalid Token"));
+
+        User user = verificationToken.getUser();
+        user.setEnabled(true);
+        userRepository.save(user);
     }
 
     private void sendVerificationMail(User user, String token) {
