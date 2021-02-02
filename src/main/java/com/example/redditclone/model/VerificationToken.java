@@ -2,8 +2,6 @@ package com.example.redditclone.model;
 
 import java.time.Duration;
 import java.time.Instant;
-import java.time.Period;
-import java.time.temporal.TemporalAmount;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
