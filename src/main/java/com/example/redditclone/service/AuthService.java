@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 import com.example.redditclone.dto.RegisterRequest;
+import com.example.redditclone.model.NotificationEmail;
 import com.example.redditclone.model.User;
 import com.example.redditclone.model.VerificationToken;
 import com.example.redditclone.repository.UserRepository;
@@ -23,15 +24,27 @@ public class AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final VerificationTokenRepository verificationTokenRepository;
+    private final MailService mailService;
 
     public void signup(RegisterRequest registerRequest) {
 
         User user = saveUser(registerRequest);
 
-        createVerificationToken(user);
+        String token = generateVerificationToken();
+        saveToken(user, token);
 
-        // TODO: send email with the generated token
+        sendVerificationMail(user, token);
+    }
 
+    private void sendVerificationMail(User user, String token) {
+        NotificationEmail notificationEmail = new NotificationEmail();
+        notificationEmail.setSubject("Please Activate your Account");
+        notificationEmail.setRecipient(user.getEmail());
+        notificationEmail.setBody("Thank you for signing up to Spring Reddit, "
+                + "please click on the below url to activate your account : "
+                + "http://localhost:8080/api/auth/accountVerification/" + token);
+
+        mailService.sendMail(notificationEmail);
     }
 
     private User saveUser(RegisterRequest registerRequest) {
@@ -50,8 +63,7 @@ public class AuthService {
         return UUID.randomUUID().toString();
     }
 
-    private void createVerificationToken(User user) {
-        String token = generateVerificationToken();
+    private void saveToken(User user, String token) {
 
         VerificationToken verificationToken = new VerificationToken();
         verificationToken.setToken(token);
