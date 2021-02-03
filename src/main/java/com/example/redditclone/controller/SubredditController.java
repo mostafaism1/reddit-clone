@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping(path = "api/subreddit")
+@RequestMapping(path = "api/subreddits")
 @AllArgsConstructor
 public class SubredditController {
 
