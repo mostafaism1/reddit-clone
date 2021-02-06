@@ -28,14 +28,13 @@ public class PostService {
     private final PostRepository postRepository;
     private final SubredditRepository subredditRepository;
     private final UserRepository userRepository;
+    private final AuthService authService;
 
     public PostResponse save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName()).orElseThrow(
                 () -> new RedditException("No subreddit found with name = " + postRequest.getSubredditName()));
 
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        User user = userRepository.findByUsername(username)
-                .orElseThrow(() -> new RedditException("No user found with username = " + username));
+        User user = authService.getCurrentUser();
 
         Post post = Post.builder().name(postRequest.getName()).url(postRequest.getUrl())
                 .description(postRequest.getDescription()).subreddit(subreddit).user(user).createdAt(Instant.now())
