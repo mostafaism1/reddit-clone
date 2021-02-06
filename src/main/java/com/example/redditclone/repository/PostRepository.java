@@ -1,7 +1,6 @@
 package com.example.redditclone.repository;
 
 import java.util.List;
-import java.util.Optional;
 
 import com.example.redditclone.model.Post;
 import com.example.redditclone.model.Subreddit;
