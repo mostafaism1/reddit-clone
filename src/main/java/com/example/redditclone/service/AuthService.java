@@ -105,4 +105,12 @@ public class AuthService {
         return new AuthenticationResponse(token, loginRequest.getUsername());
     }    
 
+    public User getCurrentUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new RedditException("No user found with username = " + username));
+
+        return user;
+    }
+
 }
