@@ -10,11 +10,13 @@ import com.example.redditclone.exception.RedditException;
 import com.example.redditclone.model.Post;
 import com.example.redditclone.model.Subreddit;
 import com.example.redditclone.model.User;
+import com.example.redditclone.repository.CommentRepository;
 import com.example.redditclone.repository.PostRepository;
 import com.example.redditclone.repository.SubredditRepository;
 import com.example.redditclone.repository.UserRepository;
+import com.example.redditclone.repository.VoteRepository;
+import com.github.marlonlom.utilities.timeago.TimeAgo;
 
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +31,8 @@ public class PostService {
     private final SubredditRepository subredditRepository;
     private final UserRepository userRepository;
     private final AuthService authService;
+    private final VoteRepository voteRepository;
+    private final CommentRepository commentRepository;
 
     public PostResponse save(PostRequest postRequest) {
         Subreddit subreddit = subredditRepository.findByName(postRequest.getSubredditName()).orElseThrow(
@@ -38,7 +42,7 @@ public class PostService {
 
         Post post = Post.builder().name(postRequest.getName()).url(postRequest.getUrl())
                 .description(postRequest.getDescription()).subreddit(subreddit).user(user).createdAt(Instant.now())
-                .build();
+                .voteCount(0).build();
 
         postRepository.save(post);
 
@@ -81,7 +85,9 @@ public class PostService {
     private PostResponse mapPostToPostResponse(Post post) {
         return PostResponse.builder().id(post.getId()).name(post.getName()).url(post.getUrl())
                 .description(post.getDescription()).userName(post.getUser().getUsername())
-                .subredditName(post.getSubreddit().getName()).build();
+                .subredditName(post.getSubreddit().getName()).voteCount(voteRepository.findByPost(post).size())
+                .commentCount(commentRepository.findByPost(post).size())
+                .duration(TimeAgo.using(post.getCreatedAt().toEpochMilli())).build();
     }
 
 }
