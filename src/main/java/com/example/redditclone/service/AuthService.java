@@ -3,8 +3,11 @@ package com.example.redditclone.service;
 import java.time.Instant;
 import java.util.UUID;
 
+import javax.validation.Valid;
+
 import com.example.redditclone.dto.AuthenticationResponse;
 import com.example.redditclone.dto.LoginRequest;
+import com.example.redditclone.dto.RefreshTokenRequest;
 import com.example.redditclone.dto.RegisterRequest;
 import com.example.redditclone.exception.RedditException;
 import com.example.redditclone.model.NotificationEmail;
@@ -35,6 +38,7 @@ public class AuthService {
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final RefreshTokenService refreshTokenService;
 
     public void signup(RegisterRequest registerRequest) {
 
@@ -102,7 +106,12 @@ public class AuthService {
         
         String token = jwtProvider.generateToken(authentication);
 
-        return new AuthenticationResponse(token, loginRequest.getUsername());
+        return AuthenticationResponse.builder()
+            .authenticationToken(token)
+            .username(loginRequest.getUsername())
+            .refreshToken(refreshTokenService.generateRefreshToken().getToken())
+            .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+        .build();
     }    
 
     public User getCurrentUser() {
@@ -112,5 +121,17 @@ public class AuthService {
 
         return user;
     }
+
+	public AuthenticationResponse refreshToken(@Valid RefreshTokenRequest refreshTokenRequest) {
+        refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
+        String token = jwtProvider.generateTokenWithUserName(refreshTokenRequest.getUsername());
+        
+        return AuthenticationResponse.builder()
+            .authenticationToken(token)
+            .username(refreshTokenRequest.getUsername())
+            .refreshToken(refreshTokenRequest.getRefreshToken())
+            .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
+        .build();
+	}
 
 }
