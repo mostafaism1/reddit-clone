@@ -6,10 +6,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  isLoggedIn: boolean = false;
+  username:String = "";
+
 
   constructor() { }
 
   ngOnInit(): void {
   }
-  
+
+  goToUserProfile(): void {
+
+  }
+
+  logout(): void {
+
+  }
+
 }
