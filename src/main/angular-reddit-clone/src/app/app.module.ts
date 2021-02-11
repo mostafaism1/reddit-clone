@@ -12,13 +12,13 @@ import { HeaderComponent } from './header/header.component';
   declarations: [
     AppComponent,
     HeaderComponent,
-    SignupComponent,
-    HttpClientModule
+    SignupComponent    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
