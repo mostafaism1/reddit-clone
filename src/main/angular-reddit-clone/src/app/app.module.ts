@@ -18,6 +18,7 @@ import { VoteButtonComponent } from './shared/vote-button/vote-button.component'
 import { SideBarComponent } from './shared/side-bar/side-bar.component';
 import { SubredditSideBarComponent } from './shared/subreddit-side-bar/subreddit-side-bar.component';
 import { CreateSubredditComponent } from './subreddit/create-subreddit/create-subreddit.component';
+import { ListSubredditsComponent } from './subreddit/list-subreddits/list-subreddits.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CreateSubredditComponent } from './subreddit/create-subreddit/create-su
     VoteButtonComponent,
     SideBarComponent,
     SubredditSideBarComponent,
-    CreateSubredditComponent
+    CreateSubredditComponent,
+    ListSubredditsComponent
   ],
   imports: [
     BrowserModule,
