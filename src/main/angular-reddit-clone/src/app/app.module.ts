@@ -14,7 +14,8 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './token-interceptor';
 import { PostTileComponent } from './shared/post-tile/post-tile.component';
-import { VoteButtonComponent } from './shared/vote-button/vote-button.component'; ubreddit - side - bar.component';
+import { VoteButtonComponent } from './shared/vote-button/vote-button.component';
+import { SideBarComponent } from './shared/side-bar/side-bar.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { VoteButtonComponent } from './shared/vote-button/vote-button.component'
     HomeComponent,
     PostTileComponent,
     VoteButtonComponent,
+    SideBarComponent
   ],
   imports: [
     BrowserModule,
