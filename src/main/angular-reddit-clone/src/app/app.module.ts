@@ -14,6 +14,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './token-interceptor';
 import { PostTileComponent } from './shared/post-tile/post-tile.component';
+import { VoteButtonComponent } from './shared/vote-button/vote-button.component'; ubreddit - side - bar.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { PostTileComponent } from './shared/post-tile/post-tile.component';
     SignupComponent,
     LoginComponent,
     HomeComponent,
-    PostTileComponent
+    PostTileComponent,
+    VoteButtonComponent,
   ],
   imports: [
     BrowserModule,
