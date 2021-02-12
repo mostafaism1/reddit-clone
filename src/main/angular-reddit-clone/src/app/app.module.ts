@@ -13,6 +13,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { TokenInterceptor } from './token-interceptor';
+import { PostTileComponent } from './shared/post-tile/post-tile.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { TokenInterceptor } from './token-interceptor';
     HeaderComponent,
     SignupComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    PostTileComponent
   ],
   imports: [
     BrowserModule,
