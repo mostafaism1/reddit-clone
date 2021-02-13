@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> findByPost(Post post);
-    List<Comment> findByUser(User user);
+    List<Comment> findByPostOrderByCreatedAtDesc(Post post);
+    List<Comment> findByUserOrderByCreatedAtDesc(User user);
 
 }

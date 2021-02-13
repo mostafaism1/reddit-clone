@@ -59,7 +59,7 @@ public class CommentService {
                 Post post = postRepository.findById(postId)
                                 .orElseThrow(() -> new RedditException("No post found with id = " + postId));
 
-                List<Comment> comments = commentRepository.findByPost(post);
+                List<Comment> comments = commentRepository.findByPostOrderByCreatedAtDesc(post);
                 return mapCommentsToDto(comments);
         }
 
@@ -67,7 +67,7 @@ public class CommentService {
         public List<CommentDto> getCommentsByUsername(String username) {
                 User user = userRepository.findByUsername(username)
                                 .orElseThrow(() -> new RedditException("No user found with username = " + username));
-                List<Comment> comments = commentRepository.findByUser(user);
+                List<Comment> comments = commentRepository.findByUserOrderByCreatedAtDesc(user);
                 return mapCommentsToDto(comments);
         }
 

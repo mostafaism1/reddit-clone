@@ -54,7 +54,7 @@ public class PostService {
 
     @Transactional(readOnly = true)
     public List<PostResponse> getAllPosts() {
-        return postRepository.findAll().stream().map(this::mapPostToPostResponse).collect(Collectors.toList());
+        return postRepository.OrderByCreatedAtDesc().stream().map(this::mapPostToPostResponse).collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
@@ -68,7 +68,7 @@ public class PostService {
     public List<PostResponse> getPostsBySubreddit(long id) {
         Subreddit subreddit = subredditRepository.findById(id)
                 .orElseThrow(() -> new RedditException("No subreddit found with id = " + id));
-        List<Post> posts = postRepository.findBySubreddit(subreddit);
+        List<Post> posts = postRepository.findBySubredditOrderByCreatedAtDesc(subreddit);
 
         return posts.stream().map(this::mapPostToPostResponse).collect(Collectors.toList());
     }
@@ -78,7 +78,7 @@ public class PostService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RedditException("No user found with username = " + username));
 
-        List<Post> posts = postRepository.findByUser(user);
+        List<Post> posts = postRepository.findByUserOrderByCreatedAtDesc(user);
 
         return posts.stream().map(this::mapPostToPostResponse).collect(Collectors.toList());
 
@@ -92,7 +92,7 @@ public class PostService {
             .description(post.getDescription())
             .userName(post.getUser().getUsername())
             .subredditName(post.getSubreddit().getName()).voteCount(voteRepository.findByPost(post).size())
-            .commentCount(commentRepository.findByPost(post).size())
+            .commentCount(commentRepository.findByPostOrderByCreatedAtDesc(post).size())
             .duration(TimeAgo.using(post.getCreatedAt().toEpochMilli()))
             .upVoted(voteService.isPostVotedByCurrentUser(post, VoteType.UPVOTE))
             .downVoted(voteService.isPostVotedByCurrentUser(post, VoteType.DOWNVOTE))
