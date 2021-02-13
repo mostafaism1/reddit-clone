@@ -12,14 +12,14 @@
         </span>
         <hr />
         <div class="post-title">
-            <a class="postname" href="{{post.url}}">{{post.name}}</a>
+            <a class="postname" [routerLink]="['/view-post/' + post.id]">{{post.name}}</a>
         </div>
         <div>
             <p class="post-text" [innerHTML]="post.description"></p>
         </div>
         <hr />
         <span>
-            <a class="btnCommments" role="button">
+            <a class="btnCommments" role="button" [routerLink]="['/view-post/' + post.id]">
                 <fa-icon [icon]="faComments"></fa-icon>
                 Comments({{post.commentCount}})
             </a>
