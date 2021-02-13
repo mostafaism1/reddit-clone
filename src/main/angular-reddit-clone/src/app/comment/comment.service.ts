@@ -7,7 +7,7 @@ import { CommentModel } from './comment.model';
   providedIn: 'root'
 })
 export class CommentService {
-
+  
   constructor(private http: HttpClient) { }
 
   getCommentsByPost(postId: number): Observable<CommentModel[]> {
@@ -17,4 +17,9 @@ export class CommentService {
   createComment(commentModel: CommentModel): Observable<CommentModel> {
     return this.http.post<CommentModel>('http://localhost:8080/api/comments/', commentModel);
   }
+
+  getCommentsByUser(username: string) : Observable<CommentModel[]> {
+    return this.http.get<CommentModel[]>('http://localhost:8080/api/comments/by-user/' + username);
+  }
+
 }

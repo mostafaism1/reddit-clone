@@ -6,7 +6,7 @@ import { PostModel } from './post-model';
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class PostService {  
 
   constructor(private http: HttpClient) { }
 
@@ -20,5 +20,9 @@ export class PostService {
 
   getPost(postId: number): Observable<PostModel> {
     return this.http.get<PostModel>('http://localhost:8080/api/posts/' + postId);
+  }
+
+  getPostsByUser(username: string) : Observable<PostModel[]> {
+    return this.http.get<PostModel[]>('http://localhost:8080/api/posts/by-user/' + username);
   }
 }
