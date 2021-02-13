@@ -13,8 +13,7 @@
 	<name>reddit-clone</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>11</java.version>
-		<org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+		<java.version>11</java.version>		
 	</properties>
 	<dependencies>
 		<dependency>
@@ -87,12 +86,7 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt-jackson</artifactId>
 			<version>0.10.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.mapstruct</groupId>
-			<artifactId>mapstruct</artifactId>
-			<version>${org.mapstruct.version}</version>
-		</dependency>
+		</dependency>		
 
 		<!-- For Displaying time as Relative Time Ago ("Posted 1 Day ago"),
          as this is a Kotlin library, we also need Kotlin runtime libraries-->
@@ -134,12 +128,7 @@
 				<configuration>
 					<source>11</source> <!-- depending on your project -->
 					<target>11</target> <!-- depending on your project -->
-					<annotationProcessorPaths>
-						<path>
-							<groupId>org.mapstruct</groupId>
-							<artifactId>mapstruct-processor</artifactId>
-							<version>${org.mapstruct.version}</version>
-						</path>
+					<annotationProcessorPaths>					
 						<!-- other annotation processors -->
 					</annotationProcessorPaths>
 				</configuration>
