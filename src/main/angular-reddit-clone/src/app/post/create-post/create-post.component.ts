@@ -27,6 +27,8 @@ export class CreatePostComponent implements OnInit {
     });
 
     this.postModel = new PostModel();
+
+    this.subreddits = [];
   }
 
   ngOnInit(): void {
