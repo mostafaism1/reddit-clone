@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable, Output } from '@angular/core';
 import { LocalStorageService } from 'ngx-webstorage';
 import { Observable, throwError } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
@@ -17,6 +17,9 @@ export class AuthService {
     username: this.getUserName()
   }
 
+  @Output() loggedIn: EventEmitter<boolean> = new EventEmitter();
+  @Output() username: EventEmitter<string> = new EventEmitter();
+
   constructor(private httpClient: HttpClient, private localStorage: LocalStorageService) { }
 
   signup(signupRequestPayLoad: SignupRequestPayload): Observable<any> {
@@ -33,6 +36,8 @@ export class AuthService {
           this.localStorage.store("expiresAt", data.expiresAt);
           this.localStorage.store("refreshToken", data.refreshToken);
 
+          this.loggedIn.emit(true);
+          this.username.emit(data.username);
           return data;
         }));
   }

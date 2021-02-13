@@ -10,15 +10,15 @@ import { AuthService } from '../auth/shared/auth.service';
 })
 export class HeaderComponent implements OnInit {
   faUser = faUser;
-  isLoggedIn: boolean = false;
-  username:String = "";
+  isLoggedIn: boolean;
+  username: String;
 
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isLoggedIn();
-    this.username = this.authService.getUserName();
+    this.authService.loggedIn.subscribe( isLoggedIn => this.isLoggedIn = isLoggedIn);
+    this.authService.username.subscribe( username => this.username = username);
   }
 
   goToUserProfile(): void {
