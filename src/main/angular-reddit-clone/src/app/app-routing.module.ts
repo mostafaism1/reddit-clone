@@ -8,6 +8,7 @@ import { CreatePostComponent } from './post/create-post/create-post.component';
 import { ViewPostComponent } from './post/view-post/view-post.component';
 import { CreateSubredditComponent } from './subreddit/create-subreddit/create-subreddit.component';
 import { ListSubredditsComponent } from './subreddit/list-subreddits/list-subreddits.component';
+import { ViewSubredditComponent } from './view-subreddit/view-subreddit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'create-post', component: CreatePostComponent },
   { path: 'view-post/:id', component: ViewPostComponent},
   { path: 'user-profile/:username', component: UserProfileComponent},
+  { path: 'r/:subredditName', component: ViewSubredditComponent},
 ];
 
 @NgModule({
