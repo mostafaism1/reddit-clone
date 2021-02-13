@@ -1,7 +1,5 @@
 package com.example.redditclone.dto;
 
-import java.time.Instant;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +17,8 @@ public class CommentDto {
     
     private String text;
 
-    private Instant createdAt;    
+    private String createdAt;    
     
     private String username;
-    
+
 }

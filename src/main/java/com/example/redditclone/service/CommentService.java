@@ -13,6 +13,7 @@ import com.example.redditclone.model.User;
 import com.example.redditclone.repository.CommentRepository;
 import com.example.redditclone.repository.PostRepository;
 import com.example.redditclone.repository.UserRepository;
+import com.github.marlonlom.utilities.timeago.TimeAgo;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -30,8 +31,8 @@ public class CommentService {
         private final AuthService authService;
         private final MailContentBuilder mailContentBuilder;
         private final MailService mailService;
-
-        public CommentDto save(CommentDto commentDto) {
+    
+    public CommentDto save(CommentDto commentDto) {
 
                 Post post = postRepository.findById(commentDto.getPostId()).orElseThrow(
                                 () -> new RedditException("No post found with id = " + commentDto.getPostId()));
@@ -76,7 +77,7 @@ public class CommentService {
 
         private CommentDto mapCommentToDto(Comment comment) {
                 return CommentDto.builder().id(comment.getId()).postId(comment.getPost().getId())
-                                .text(comment.getText()).createdAt(comment.getCreatedAt())
+                                .text(comment.getText()).createdAt(TimeAgo.using(comment.getCreatedAt().toEpochMilli()))
                                 .username(comment.getUser().getUsername()).build();
         }
 
