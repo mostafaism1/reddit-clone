@@ -1,1 +1,10 @@
-<p>view-subreddit works!</p>
+<div class="container">
+    <div>
+        <b>{{ subreddit.description }}</b>.<br />
+        <p>/r/{{ subreddit.name }}</p>
+    </div>
+    <hr />
+    <div>
+        <app-post-tile [posts]="posts"></app-post-tile>
+    </div>
+</div>
