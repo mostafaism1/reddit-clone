@@ -17,6 +17,7 @@ import com.example.redditclone.repository.UserRepository;
 import com.example.redditclone.repository.VerificationTokenRepository;
 import com.example.redditclone.security.JwtProvider;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -133,5 +134,13 @@ public class AuthService {
             .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
         .build();
 	}
+
+    public boolean isLoggedIn() {
+        // reference:
+        // https://stackoverflow.com/questions/19221979/spring-security-3-isauthenticated-not-working
+        
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return authentication != null && !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
+    }
 
 }

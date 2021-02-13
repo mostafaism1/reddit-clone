@@ -28,4 +28,8 @@ public class PostResponse {
     private int commentCount;
 
     private String duration;
+
+    private boolean upVoted;
+
+    private boolean downVoted;
 }

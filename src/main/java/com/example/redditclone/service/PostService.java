@@ -10,6 +10,7 @@ import com.example.redditclone.exception.RedditException;
 import com.example.redditclone.model.Post;
 import com.example.redditclone.model.Subreddit;
 import com.example.redditclone.model.User;
+import com.example.redditclone.model.VoteType;
 import com.example.redditclone.repository.CommentRepository;
 import com.example.redditclone.repository.PostRepository;
 import com.example.redditclone.repository.SubredditRepository;
@@ -32,6 +33,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final AuthService authService;
     private final VoteRepository voteRepository;
+    private final VoteService voteService;
     private final CommentRepository commentRepository;
 
     public PostResponse save(PostRequest postRequest) {
@@ -83,11 +85,19 @@ public class PostService {
     }
 
     private PostResponse mapPostToPostResponse(Post post) {
-        return PostResponse.builder().id(post.getId()).name(post.getName()).url(post.getUrl())
-                .description(post.getDescription()).userName(post.getUser().getUsername())
-                .subredditName(post.getSubreddit().getName()).voteCount(voteRepository.findByPost(post).size())
-                .commentCount(commentRepository.findByPost(post).size())
-                .duration(TimeAgo.using(post.getCreatedAt().toEpochMilli())).build();
+        return PostResponse.builder()
+            .id(post.getId())
+            .name(post.getName())
+            .url(post.getUrl())
+            .description(post.getDescription())
+            .userName(post.getUser().getUsername())
+            .subredditName(post.getSubreddit().getName()).voteCount(voteRepository.findByPost(post).size())
+            .commentCount(commentRepository.findByPost(post).size())
+            .duration(TimeAgo.using(post.getCreatedAt().toEpochMilli()))
+            .upVoted(voteService.isPostVotedByCurrentUser(post, VoteType.UPVOTE))
+            .downVoted(voteService.isPostVotedByCurrentUser(post, VoteType.DOWNVOTE))
+            .voteCount(voteService.getNetVoteCount(post))
+        .build();
     }
 
 }

@@ -7,6 +7,7 @@ import com.example.redditclone.exception.RedditException;
 import com.example.redditclone.model.Post;
 import com.example.redditclone.model.User;
 import com.example.redditclone.model.Vote;
+import com.example.redditclone.model.VoteType;
 import com.example.redditclone.repository.PostRepository;
 import com.example.redditclone.repository.VoteRepository;
 
@@ -56,5 +57,24 @@ public class VoteService {
     private Vote mapVoteDtoToVote(VoteDto voteDto, User user, Post post) {
         return Vote.builder().user(user).post(post).voteType(voteDto.getVoteType()).build();
     }
+
+    public boolean isPostVotedByCurrentUser(Post post, VoteType voteType) {
+        if (!authService.isLoggedIn()) {
+            return false;
+        }
+        
+        Optional<Vote> vote = voteRepository.findByUserAndPost(authService.getCurrentUser(), post);
+
+        if (vote.isPresent()) {
+            return vote.get().getVoteType() == voteType;
+        }
+        else {
+            return false;            
+        }
+    }
+
+	public int getNetVoteCount(Post post) {
+		return voteRepository.countByPostAndVoteType(post, VoteType.UPVOTE) - voteRepository.countByPostAndVoteType(post, VoteType.DOWNVOTE);
+	}
 
 }
