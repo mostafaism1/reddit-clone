@@ -73,4 +73,8 @@ public class VoteService {
         }
     }
 
+	public int getNetVoteCount(Post post) {
+		return voteRepository.countByPostAndVoteType(post, VoteType.UPVOTE) - voteRepository.countByPostAndVoteType(post, VoteType.DOWNVOTE);
+	}
+
 }
