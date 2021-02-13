@@ -12,7 +12,7 @@
                     <span> . Posted
                 <span> {{post.duration}} </span> by
                     <a *ngIf="post.userName === null" class="username" href="">Anonymous</a>
-                    <a *ngIf="post.userName != null" class="username" href="">{{post.userName}}</a>
+                    <a *ngIf="post.userName != null" class="username" routerLink="/user-profile/{{post.userName}}">{{post.userName}}</a>
                     </span>
                     </span>
                     <hr />
