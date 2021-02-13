@@ -22,7 +22,8 @@ import { ListSubredditsComponent } from './subreddit/list-subreddits/list-subred
 import { CreatePostComponent } from './post/create-post/create-post.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { ViewPostComponent } from './post/view-post/view-post.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileComponent } from './auth/user-profile/user-profile.component'
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
     CreateSubredditComponent,
     ListSubredditsComponent,
     CreatePostComponent,
-    ViewPostComponent
+    ViewPostComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
