@@ -59,7 +59,7 @@ export class ViewPostComponent implements OnInit {
     this.commentModel.text = this.commentForm.get('text')?.value;
     this.commentModel.postId = this.postId;
 
-    this.commentService.postComment(this.commentModel).subscribe(
+    this.commentService.createComment(this.commentModel).subscribe(
       (data) => {
         this.commentForm.get('text')?.setValue('');
 
