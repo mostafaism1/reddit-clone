@@ -9,8 +9,8 @@
                 <div class="col-md-11">
                     <span>
               <span class="subreddit-text"><a class="post-url" href="">{{post.subredditName}}</a></span>
-                    <span> . Posted 
-                  <span> {{post.duration}} </span> by
+                    <span> . Posted
+                <span> {{post.duration}} </span> by
                     <a *ngIf="post.userName === null" class="username" href="">Anonymous</a>
                     <a *ngIf="post.userName != null" class="username" href="">{{post.userName}}</a>
                     </span>
@@ -20,12 +20,32 @@
                     <div>
                         <p class="post-text" [innerHtml]="post.description"></p>
                     </div>
+                    <div class="post-comment">
+                        <form [formGroup]="commentForm" (ngSubmit)="postComment()">
+                            <div class="form-group">
+                                <textarea class="form-control" [formControlName]="'text'" placeholder="Your Thoughts?"></textarea>
+                            </div>
+                            <button type="submit" class="login float-right" (click)="postComment()">Comment</button>
+                        </form>
+                    </div>
+                    <div style="margin-top: 60px;" *ngFor="let comment of comments">
+                        <div class="comment">
+                            <div class="username">
+                                <a routerLink="/user/comment.username">{{comment.username}}</a>
+                            </div>
+                            <div>
+                                <p>{{comment.createdAt}}</p>
+                            </div>
+                            <b>{{comment.text}}</b>
+                        </div>
+                        <hr />
+                    </div>
                 </div>
             </div>
         </div>
         <div class="col-md-3">
-            <!-- <sidebar></sidebar>
-            <sidebar-view-subreddit></sidebar-view-subreddit> -->
+            <app-side-bar></app-side-bar>
+            <app-subreddit-side-bar></app-subreddit-side-bar>
         </div>
     </div>
 </div>
