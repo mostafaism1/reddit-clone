@@ -49,4 +49,10 @@ public class SubredditService {
                 .description(subreddit.getDescription()).postCount(subreddit.getPosts().size()).build();
     }
 
+	public SubredditDto getSubredditByName(String subredditName) {
+		Subreddit subreddit = subredditRepository.findByName(subredditName)
+                .orElseThrow(() -> new RedditException("No subreddit found with name = " + subredditName));
+        return mapSubredditToDto(subreddit);
+	}
+
 }

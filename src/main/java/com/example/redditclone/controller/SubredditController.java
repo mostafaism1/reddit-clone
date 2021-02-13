@@ -39,4 +39,9 @@ public class SubredditController {
         return ResponseEntity.status(HttpStatus.OK).body(subredditService.getSubreddit(id));
     }
 
+    @GetMapping("/by-name/{subredditName}")
+    public ResponseEntity<SubredditDto> getSubredditByName(@PathVariable String subredditName) {
+        return ResponseEntity.status(HttpStatus.OK).body(subredditService.getSubredditByName(subredditName));
+    }
+
 }

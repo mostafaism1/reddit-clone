@@ -8,11 +8,11 @@
                 </div>
                 <div class="col-md-11">
                     <span>
-              <span class="subreddit-text"><a class="post-url" href="">{{post.subredditName}}</a></span>
+              <span class="subreddit-text"><a class="post-url" [routerLink]="['/r/' + post.subredditName]">{{post.subredditName}}</a></span>
                     <span> . Posted
                 <span> {{post.duration}} </span> by
                     <a *ngIf="post.userName === null" class="username" href="">Anonymous</a>
-                    <a *ngIf="post.userName != null" class="username" href="">{{post.userName}}</a>
+                    <a *ngIf="post.userName != null" class="username" routerLink="/user-profile/{{post.userName}}">{{post.userName}}</a>
                     </span>
                     </span>
                     <hr />
