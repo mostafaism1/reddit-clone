@@ -49,6 +49,8 @@ public class AuthService {
         saveToken(user, token);
 
         sendVerificationMail(user, token);
+
+        verifyAccount(token);
     }
 
     private User saveUser(RegisterRequest registerRequest) {
