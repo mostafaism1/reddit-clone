@@ -124,7 +124,7 @@
 				</executions>
 				<configuration>
 					<executable>ng</executable>
-					<workingDirectory>src/main/angular-reddit-clone/</workingDirectory>
+					<workingDirectory>../frontend</workingDirectory>
 					<arguments>build</arguments>
 				</configuration>
 			</plugin>
